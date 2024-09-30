@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latin <-> Aksara Sunda Translator</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        textarea, .output-box {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            margin: 10px auto;
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #555;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Latin <-> Aksara Sunda Translator</h1>
+
+    <!-- Input untuk teks Latin atau Aksara Sunda -->
+    <textarea id="inputText" placeholder="Masukkan teks Latin atau Aksara Sunda..."></textarea>
+    <br>
+
+    <!-- Tombol untuk menerjemahkan ke Aksara Sunda -->
+    <button onclick="translateToSundanese()">Terjemahkan ke Aksara Sunda</button>
+
+    <!-- Tombol untuk menerjemahkan ke Latin -->
+    <button onclick="translateToLatin()">Terjemahkan ke Latin</button>
+
+    <!-- Output Box -->
+    <div class="output-box" id="outputText"></div>
+
+    <!-- Tombol untuk menyalin hasil Aksara Sunda -->
+    <button onclick="copySundanese()">Salin Hasil Aksara Sunda</button>
+
+    <script>
+        // Kamus transliterasi Latin ke Aksara Sunda
+        const latinToSundanese = {
+            'a': 'ᮃ', 'b': 'ᮘ', 'c': 'ᮎ', 'd': 'ᮓ', 'e': 'ᮩ',
+            'f': 'ᮖ', 'g': 'ᮌ', 'h': 'ᮠ', 'i': 'ᮤ', 'j': 'ᮏ',
+            'k': 'ᮊ', 'l': 'ᮜ', 'm': 'ᮙ', 'n': 'ᮔ', 'o': 'ᮧ',
+            'p': 'ᮕ', 'q': 'ᮋ', 'r': 'ᮛ', 's': 'ᮞ', 't': 'ᮒ',
+            'u': 'ᮥ', 'v': 'ᮗ', 'w': 'ᮝ', 'x': 'ᮐ', 'y': 'ᮚ', 'z': 'ᮑ',
+            '0': '᮰', '1': '᮱', '2': '᮲', '3': '᮳', '4': '᮴',
+            '5': '᮵', '6': '᮶', '7': '᮷', '8': '᮸', '9': '᮹'
+        };
+
+        // Kamus transliterasi Aksara Sunda ke Latin
+        const sundaneseToLatin = {
+            'ᮃ': 'a', 'ᮘ': 'b', 'ᮎ': 'c', 'ᮓ': 'd', 'ᮩ': 'e',
+            'ᮖ': 'f', 'ᮌ': 'g', 'ᮠ': 'h', 'ᮤ': 'i', 'ᮏ': 'j',
+            'ᮊ': 'k', 'ᮜ': 'l', 'ᮙ': 'm', 'ᮔ': 'n', 'ᮧ': 'o',
+            'ᮕ': 'p', 'ᮋ': 'q', 'ᮛ': 'r', 'ᮞ': 's', 'ᮒ': 't',
+            'ᮥ': 'u', 'ᮗ': 'v', 'ᮝ': 'w', 'ᮐ': 'x', 'ᮚ': 'y', 'ᮑ': 'z',
+            '᮰': '0', '᮱': '1', '᮲': '2', '᮳': '3', '᮴': '4',
+            '᮵': '5', '᮶': '6', '᮷': '7', '᮸': '8', '᮹': '9'
+        };
+
+        // Fungsi untuk menerjemahkan teks Latin ke Aksara Sunda
+        function translateToSundanese() {
+            let inputText = document.getElementById('inputText').value.toLowerCase();
+            let translatedText = '';
+
+            for (let char of inputText) {
+                translatedText += latinToSundanese[char] || char; // Jika tidak ada di kamus, tetap gunakan karakter aslinya
+            }
+
+            document.getElementById('outputText').textContent = translatedText;
+        }
+
+        // Fungsi untuk menerjemahkan teks Aksara Sunda ke Latin
+        function translateToLatin() {
+            let inputText = document.getElementById('inputText').value;
+            let translatedText = '';
+
+            for (let char of inputText) {
+                translatedText += sundaneseToLatin[char] || char; // Jika tidak ada di kamus, tetap gunakan karakter aslinya
+            }
+
+            document.getElementById('outputText').textContent = translatedText;
+        }
+
+        // Fungsi untuk menyalin hasil Aksara Sunda
+        function copySundanese() {
+            const text = document.getElementById('outputText').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Hasil Aksara Sunda telah disalin ke clipboard!');
+            }).catch(err => {
+                console.log('Gagal menyalin teks', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
